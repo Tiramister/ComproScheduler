@@ -14,6 +14,10 @@ class ScheduleAdapter(data: OrderedRealmCollection<Schedule>) :
 
     init { setHasStableIds(true) }
 
+    override fun getItemId(position: Int): Long {
+        return getItem(position)?.id ?: 0
+    }
+
     // information of cells in view
     class ViewHolder(
         cell: View,
