@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ComproScheduler</string>
+    <string name="dateText">Date:</string>
+    <string name="titleText">Problem Name:</string>
+    <string name="urlText">URL:</string>
+    <string name="saveText">SAVE</string>
 </resources>
