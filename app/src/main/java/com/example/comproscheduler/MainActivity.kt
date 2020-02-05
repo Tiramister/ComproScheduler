@@ -1,7 +1,9 @@
 package com.example.comproscheduler
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import io.realm.Realm
 import io.realm.kotlin.where
@@ -25,5 +27,11 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         realm.close()
+    }
+
+
+    fun moveToEdit(view: View) {
+        val intent = Intent(this, EditActivity::class.java)
+        startActivity(intent)
     }
 }
