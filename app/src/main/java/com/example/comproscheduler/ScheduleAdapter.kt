@@ -33,8 +33,9 @@ class ScheduleAdapter(data: OrderedRealmCollection<Schedule>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val schedule = getItem(position)
+        // convert date: Date? to String?
         holder.date.text = schedule?.let { sc ->
-            sc.date?.let { DateFormat.format("MM/dd", it) ?: "--/--" }
+            sc.date?.let { DateFormat.format("MM/dd", it) } ?: "--/--"
         }
         holder.title.text = schedule?.title
     }
