@@ -36,7 +36,7 @@ class EditActivity : AppCompatActivity() {
             }
 
             Snackbar.make(view, "added", Snackbar.LENGTH_SHORT)
-                .setAction("return") { finish() }
+                .setAction("finish") { finish() }
                 .show()
         }
     }

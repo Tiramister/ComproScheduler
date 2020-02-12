@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity() {
         realm.close()
     }
 
-
     fun moveToEdit(view: View) {
         val intent = Intent(this, EditActivity::class.java)
         startActivity(intent)
