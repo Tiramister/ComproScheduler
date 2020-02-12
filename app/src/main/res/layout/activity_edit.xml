@@ -13,19 +13,24 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/dateText"
-        android:textSize="18sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+    <TextView
         android:id="@+id/dateEdit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:ems="10"
         android:importantForAutofill="no"
-        android:inputType="date"
-        android:labelFor="@id/dateEdit"
+        android:onClick="chooseDate"
+        android:text="@string/require_date"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dateText" />
 
@@ -34,23 +39,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:text="@string/titleText"
-        android:textSize="18sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dateEdit" />
 
     <EditText
         android:id="@+id/titleEdit"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:ems="10"
         android:importantForAutofill="no"
-        android:inputType="textPersonName"
+        android:inputType="text"
         android:labelFor="@id/titleEdit"
+        android:lines="1"
+        android:minLines="0"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleText" />
+        app:layout_constraintTop_toBottomOf="@+id/titleText"
+        tools:text="abc111-A" />
 
     <TextView
         android:id="@+id/urlText"
@@ -59,19 +70,22 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/urlText"
-        android:textSize="18sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleEdit" />
 
     <EditText
         android:id="@+id/urlEdit"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:ems="10"
         android:importantForAutofill="no"
         android:inputType="textUri"
         android:labelFor="@id/urlEdit"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/urlText" />
 

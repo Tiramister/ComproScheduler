@@ -4,4 +4,5 @@
     <string name="titleText">Problem Name:</string>
     <string name="urlText">URL:</string>
     <string name="saveText">SAVE</string>
+    <string name="require_date">tap to select date</string>
 </resources>

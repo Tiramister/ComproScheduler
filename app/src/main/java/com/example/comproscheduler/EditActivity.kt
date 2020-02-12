@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.format.DateFormat
 import android.view.View
+import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import io.realm.Realm
 import io.realm.kotlin.createObject
@@ -13,10 +14,14 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
-class EditActivity : AppCompatActivity() {
+class EditActivity :
+    AppCompatActivity(),
+    DatePickerFragment.OnDateSelectedListener {
+
     private lateinit var realm: Realm
     private var scheduleId: Long? = null
     private var isNewSchedule: Boolean = false
+    private var selectedDate: Date? = null
 
     private fun updateScheduleId(id: Long?) {
         scheduleId = id
@@ -39,11 +44,27 @@ class EditActivity : AppCompatActivity() {
 
             // set contents
             schedule?.run {
-                dateEdit.setText(DateFormat.format("yyyy/MM/dd", date))
+                dateEdit.text = date?.let {
+                    DateFormat.format("yyyy/MM/dd", it)
+                } ?: resources.getString(R.string.require_date)
                 titleEdit.setText(title)
                 urlEdit.setText(url)
             }
         }
+    }
+
+    override fun onSelected(year: Int, month: Int, date: Int) {
+        val cal = Calendar.getInstance()
+        cal.set(year, month, date)
+
+        // update date and text
+        selectedDate = cal.time
+        dateEdit.text = DateFormat.format("yyyy/MM/dd", cal)
+    }
+
+    fun chooseDate(view: View) {
+        val dialog = DatePickerFragment()
+        dialog.show(supportFragmentManager, "date_dialog")
     }
 
     fun saveSchedule(view: View) {
@@ -66,24 +87,19 @@ class EditActivity : AppCompatActivity() {
 
             // fill schedule with input
             schedule?.run {
-                date = dateEdit.text.toString().toDate()
+                date = selectedDate
                 title = titleEdit.text.toString()
                 url = urlEdit.text.toString()
             }
         }
 
-        Snackbar
-            .make(view,
-                if (wasNewSchedule) {"added"} else {"updated"},
-                Snackbar.LENGTH_SHORT)
-            .setAction("finish") { finish() }
+        Toast.makeText(this, if (wasNewSchedule) {"added"} else {"updated"}, Toast.LENGTH_SHORT)
             .show()
     }
 
     fun deleteSchedule(view: View) {
         if (isNewSchedule) {
-            Snackbar
-                .make(view, "cannot delete unregistered schedule", Snackbar.LENGTH_SHORT)
+            Toast.makeText(this, "cannot delete unregistered schedule", Toast.LENGTH_SHORT)
                 .show()
         } else {
             realm.executeTransaction { db ->
@@ -94,6 +110,8 @@ class EditActivity : AppCompatActivity() {
             }
 
             // back to main activity
+            Toast.makeText(this, "deleted", Toast.LENGTH_SHORT)
+                .show()
             finish()
         }
     }
@@ -101,15 +119,5 @@ class EditActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         realm.close()
-    }
-
-    private fun String.toDate(pattern: String = "yyyy/MM/dd"): Date? {
-        return try {
-            SimpleDateFormat(pattern).parse(this)
-        } catch (err: IllegalArgumentException) {
-            return null
-        } catch (err: ParseException) {
-            return null
-        }
     }
 }
