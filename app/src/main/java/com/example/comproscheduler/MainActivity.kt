@@ -21,6 +21,15 @@ class MainActivity : AppCompatActivity() {
         scheduleListView.layoutManager = LinearLayoutManager(this)
         val schedules = realm.where<Schedule>().findAll()
         val adapter = ScheduleAdapter(schedules)
+
+        // set callback listener
+        // open edit activity with schedule id
+        adapter.setOnClickListener { id ->
+            val intent = Intent(this, EditActivity::class.java)
+                .putExtra("schedule_id", id)
+            startActivity(intent)
+        }
+
         scheduleListView.adapter = adapter
     }
 

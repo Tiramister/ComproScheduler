@@ -21,6 +21,14 @@ class ScheduleAdapter(data: OrderedRealmCollection<Schedule>) :
         return getItem(position)?.id ?: 0
     }
 
+    // callback listener
+    private var listener: ((Long?) -> Unit)? = null
+
+    // set listener with function variable
+    fun setOnClickListener(listener: (Long?) -> Unit) {
+        this.listener = listener
+    }
+
     // information of a cell
     class ViewHolder(
         cell: View,
@@ -47,5 +55,10 @@ class ScheduleAdapter(data: OrderedRealmCollection<Schedule>) :
             sc.date?.let { DateFormat.format("MM/dd", it) } ?: "--/--"
         }
         holder.title.text = schedule?.title
+
+        // set listener for cell view
+        holder.itemView.setOnClickListener {
+            listener?.invoke(schedule?.id)
+        }
     }
 }
